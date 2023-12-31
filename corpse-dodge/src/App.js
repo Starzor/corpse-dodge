@@ -4,6 +4,7 @@ import { useState } from "react";
 import Game from "./Game/Game";
 import { getFirestore } from "firebase/firestore";
 import { initializeApp } from "firebase/app";
+import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
   const [playing, setPlaying] = useState(false);
@@ -28,3 +29,14 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export default App;
 export const db = getFirestore(app);
+
+const auth = getAuth();
+signInAnonymously(auth)
+  .then(() => {
+    // Signed in..
+  })
+  .catch((error) => {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    // ...
+  });
