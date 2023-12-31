@@ -33,7 +33,7 @@ export const db = getFirestore(app);
 const auth = getAuth();
 signInAnonymously(auth)
   .then(() => {
-    // Signed in..
+    console.log("signed in");
   })
   .catch((error) => {
     const errorCode = error.code;
