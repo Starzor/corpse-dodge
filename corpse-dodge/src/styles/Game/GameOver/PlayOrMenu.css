@@ -1,0 +1,17 @@
+.postGameButtonContainer {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .postGameButton {
+    margin: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 25px;
+    font-family: Gloria;
+    color: azure;
+  }
+  
+  .postGameButton:hover {
+    text-shadow: 0 0 3px azure;
+  }

@@ -1,0 +1,75 @@
+.character {
+  width: 24px;
+  height: 45px;
+  overflow: hidden;
+  position: relative;
+  background-image: url("../../../images/Yoshiki_sprites.png");
+}
+
+@keyframes walk-up {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: -71px 0;
+  }
+}
+
+@keyframes walk-down {
+  0% {
+    background-position: 0 45px;
+  }
+  100% {
+    background-position: -71px 45px;
+  }
+}
+
+@keyframes walk-right {
+  0% {
+    background-position: 71px 0;
+  }
+  100% {
+    background-position: 0px 0;
+  }
+}
+
+@keyframes walk-left {
+  0% {
+    background-position: 71px 45px;
+  }
+  100% {
+    background-position: 0 45px;
+  }
+}
+
+.character.up {
+  background-position: -24px 0;
+}
+
+.character.down {
+  background-position: -24px 45px;
+}
+
+.character.right {
+  background-position: 47px 0;
+}
+
+.character.left {
+  background-position: 47px 45px;
+}
+
+.character.up.walking {
+  animation: walk-up 1s steps(3) infinite;
+}
+
+.character.down.walking {
+  animation: walk-down 1s steps(3) infinite;
+}
+
+.character.right.walking {
+  animation: walk-right 1s steps(3) infinite;
+}
+
+.character.left.walking {
+  animation: walk-left 1s steps(3) infinite;
+}

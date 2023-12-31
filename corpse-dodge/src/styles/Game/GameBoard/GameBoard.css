@@ -1,0 +1,7 @@
+.boardContainer {
+  width: 408px;
+  height: 492px;
+  background-image: url("../../../images/CP_classroom.png");
+  position: relative;
+  overflow: hidden;
+}

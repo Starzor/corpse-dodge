@@ -1,0 +1,10 @@
+.scoreInput {
+    width: 170px;
+    background-color: transparent;
+    font-size: 20px;
+    font-family: Gloria;
+    color: azure;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid azure;
+  }

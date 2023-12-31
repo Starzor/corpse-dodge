@@ -1,0 +1,11 @@
+.projectile {
+  position: absolute;
+}
+
+.projectile > img.up  {
+    transform: rotate(180deg);
+  }
+
+.projectile > img.left  {
+  transform: rotate(180deg);
+}
