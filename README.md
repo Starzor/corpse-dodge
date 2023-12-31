@@ -1,6 +1,7 @@
 # corpse-dodge
 
-- Game is available at https://corpse-dodge.web.app/
+- A bullet hell game inspired by the Corpse Party game 
+- available at https://corpse-dodge.web.app/
 
 ## Running locally
 - npm install to get the dependencies
