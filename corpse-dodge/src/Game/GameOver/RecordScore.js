@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { db } from "../../App";
+import { db } from "../../storeconfig";
 import { addDoc, collection } from "firebase/firestore";
 import "../../styles/Game/GameOver/RecordScore.css";
 import "../../styles/Game/GameOver/GameOver.css";

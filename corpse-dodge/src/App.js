@@ -2,9 +2,6 @@ import "./styles/App.css";
 import Menu from "./Menu/Menu";
 import { useState } from "react";
 import Game from "./Game/Game";
-import { getFirestore } from "firebase/firestore";
-import { initializeApp } from "firebase/app";
-import { getAuth, signInAnonymously, onAuthStateChanged } from "firebase/auth";
 
 const App = () => {
   const [playing, setPlaying] = useState(false);
@@ -17,26 +14,4 @@ const App = () => {
   );
 };
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAJK-1WxX3tDvmI1OBIaCIA-Oa54oamVEI",
-  authDomain: "corpse-dodge.firebaseapp.com",
-  projectId: "corpse-dodge",
-  storageBucket: "corpse-dodge.appspot.com",
-  messagingSenderId: "113918464287",
-  appId: "1:113918464287:web:2d5466f6615002aa13a02a",
-};
-
-const app = initializeApp(firebaseConfig);
 export default App;
-export const db = getFirestore(app);
-
-const auth = getAuth();
-signInAnonymously(auth)
-  .then(() => {
-    console.log("signed in");
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ...
-  });

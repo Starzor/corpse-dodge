@@ -1,5 +1,7 @@
+import { scores } from "../storeconfig";
+
 const HallOfFame = (props) => {
-  const { returnToMenu, scores } = props;
+  const { returnToMenu } = props;
 
   return (
     <>
