@@ -13,6 +13,7 @@ const Game = (props) => {
   const playAgain = () => {
     setGameOver(false);
     setNameSubmitted(false);
+    setScore(0);
   };
 
   return (
