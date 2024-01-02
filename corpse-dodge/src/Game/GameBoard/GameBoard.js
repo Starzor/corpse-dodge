@@ -7,8 +7,11 @@ import {
   projectileSpawnHandler,
   updatePlayerPosition,
   updateProjectilePositions,
-  BOARD_SIZE
+  BOARD_SIZE,
 } from "./GameLogic";
+
+const MS_PER_FRAME = 1000 / 60;
+console.log("hello");
 
 const GameBoard = (props) => {
   const { addScore, setGameOver } = props;
@@ -20,14 +23,15 @@ const GameBoard = (props) => {
   const [isPlayerMoving, setIsPlayerMoving] = useState(false);
   const [projectiles, setProjectiles] = useState([]);
   const [difficultyModifier, setDifficultyModifier] = useState(1);
-  const [keyState, setKeyState] = useState([{
-    ArrowUp: false,
-    ArrowDown: false,
-    ArrowLeft: false,
-    ArrowRight: false,
-  }]);
+  const [keyState, setKeyState] = useState([
+    {
+      ArrowUp: false,
+      ArrowDown: false,
+      ArrowLeft: false,
+      ArrowRight: false,
+    },
+  ]);
   const [projectileCountdown, setProjectileCountdown] = useState(40);
-  const msPerFrame = 1000 / 60;
 
   const handleKeyDown = (event) => {
     setKeyState((prevKeyState) => ({
@@ -63,8 +67,7 @@ const GameBoard = (props) => {
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
     window.addEventListener("keyup", handleKeyUp);
-
-    const intervalId = setInterval(updateGame, msPerFrame);
+    const intervalId = setInterval(updateGame, MS_PER_FRAME);
 
     return () => {
       window.removeEventListener("keydown", handleKeyDown);

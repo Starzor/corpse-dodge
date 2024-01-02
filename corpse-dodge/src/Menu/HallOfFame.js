@@ -1,7 +1,28 @@
-import { scores } from "../storeconfig";
+import { fetchScores } from "../storeconfig";
+import { useEffect, useState } from "react";
+
+const UPDATE_INTERVAL = 15 * 1000;
 
 const HallOfFame = (props) => {
   const { returnToMenu } = props;
+  const [scores, setScores] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const newScores = await fetchScores();
+      setScores(newScores);
+      console.log("SUCCESS");
+    } catch (error) {
+      console.error("Error fetching scores:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+    const intervalId = setInterval(fetchData, UPDATE_INTERVAL);
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <>

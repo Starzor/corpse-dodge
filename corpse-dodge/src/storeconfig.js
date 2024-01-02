@@ -18,15 +18,14 @@ export const db = getFirestore(app);
 
 const auth = getAuth();
 signInAnonymously(auth)
-  .then(() => {
-  })
+  .then(() => {})
   .catch((error) => {
     const errorCode = error.code;
     const errorMessage = error.message;
     // ...
   });
 
-const fetchScores = async () => {
+export const fetchScores = async () => {
   const querySnapshot = await getDocs(collection(db, "Scores"));
   const newScores = querySnapshot.docs.map((doc) => ({
     ...doc.data(),
@@ -34,5 +33,3 @@ const fetchScores = async () => {
   }));
   return newScores.sort((a, b) => b.score - a.score).slice(0, 10);
 };
-
-export const scores = await fetchScores();
