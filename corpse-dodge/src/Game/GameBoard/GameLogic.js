@@ -1,20 +1,20 @@
-const boardSize = {
+export const BOARD_SIZE = {
   x: 384,
   y: 492,
 };
 
-const boundaries = {
+const BOUNDARIES = {
   left: 45,
   top: 50,
-  right: boardSize.x - 20,
-  bottom: boardSize.y - 20,
+  right: BOARD_SIZE.x - 20,
+  bottom: BOARD_SIZE.y - 20,
 };
-const playerSpeed = 4;
-const playerDimensions = {
+const PLAYER_SPEED = 4;
+const PLAYER_DIMENSIONS = {
   width: 24,
   height: 45,
 };
-const projectileDimensions = { width: 48, height: 15 };
+const PROJECTILE_DIMENSIONS = { width: 48, height: 15 };
 
 export const updatePlayerPosition = (
   keyState,
@@ -26,17 +26,17 @@ export const updatePlayerPosition = (
   let deltaY = 0;
 
   if (keyState.ArrowUp) {
-    deltaY = -playerSpeed;
+    deltaY = -PLAYER_SPEED;
     setPlayerDirection("up");
+  } else if (keyState.ArrowRight) {
+    deltaX = PLAYER_SPEED;
+    setPlayerDirection("right");
   } else if (keyState.ArrowDown) {
-    deltaY = playerSpeed;
+    deltaY = PLAYER_SPEED;
     setPlayerDirection("down");
   } else if (keyState.ArrowLeft) {
-    deltaX = -playerSpeed;
+    deltaX = -PLAYER_SPEED;
     setPlayerDirection("left");
-  } else if (keyState.ArrowRight) {
-    deltaX = playerSpeed;
-    setPlayerDirection("right");
   }
 
   if (deltaX == 0 && deltaY == 0) {
@@ -49,10 +49,10 @@ export const updatePlayerPosition = (
     const newPosY = prevPos.y + deltaY;
 
     if (
-      (deltaX > 0 && newPosX + playerDimensions.width > boundaries.right) ||
-      (deltaX < 0 && newPosX < boundaries.left) ||
-      (deltaY > 0 && newPosY + playerDimensions.height > boundaries.bottom) ||
-      (deltaY < 0 && newPosY < boundaries.top)
+      (deltaX > 0 && newPosX + PLAYER_DIMENSIONS.width > BOUNDARIES.right) ||
+      (deltaX < 0 && newPosX < BOUNDARIES.left) ||
+      (deltaY > 0 && newPosY + PLAYER_DIMENSIONS.height > BOUNDARIES.bottom) ||
+      (deltaY < 0 && newPosY < BOUNDARIES.top)
     ) {
       setIsPlayerMoving(false);
       // If the new position exceeds the boundaries, return the previous state
@@ -74,7 +74,7 @@ export const updateProjectilePositions = (setProjectiles, addScore) => {
     for (let proj of prevState) {
       switch (proj.direction) {
         case "up":
-          if (proj.position.y - proj.speed > -projectileDimensions.width) {
+          if (proj.position.y - proj.speed > -PROJECTILE_DIMENSIONS.width) {
             updatedProjectiles.push({
               direction: proj.direction,
               speed: proj.speed,
@@ -88,7 +88,7 @@ export const updateProjectilePositions = (setProjectiles, addScore) => {
           }
           break;
         case "down":
-          if (proj.position.y + proj.speed < boundaries.bottom) {
+          if (proj.position.y + proj.speed < BOUNDARIES.bottom) {
             updatedProjectiles.push({
               direction: proj.direction,
               speed: proj.speed,
@@ -102,7 +102,7 @@ export const updateProjectilePositions = (setProjectiles, addScore) => {
           }
           break;
         case "right":
-          if (proj.position.x + proj.speed < boundaries.right) {
+          if (proj.position.x + proj.speed < BOUNDARIES.right) {
             updatedProjectiles.push({
               direction: proj.direction,
               speed: proj.speed,
@@ -116,7 +116,7 @@ export const updateProjectilePositions = (setProjectiles, addScore) => {
           }
           break;
         case "left":
-          if (proj.position.x - proj.speed > -projectileDimensions.width) {
+          if (proj.position.x - proj.speed > -PROJECTILE_DIMENSIONS.width) {
             updatedProjectiles.push({
               direction: proj.direction,
               speed: proj.speed,
@@ -161,33 +161,37 @@ const spawnProjectile = (setProjectiles) => {
     switch (direction) {
       case "up":
         position = {
-          x: (boundaries.right - projectileDimensions.width) * Math.random(),
-          y: boardSize.y - projectileDimensions.height,
+          x: (BOUNDARIES.right - PROJECTILE_DIMENSIONS.width) * Math.random(),
+          y: BOARD_SIZE.y - PROJECTILE_DIMENSIONS.height,
         };
-        if (position.x < boundaries.left) position.x = boundaries.left;
+        if (position.x < BOUNDARIES.left) position.x = BOUNDARIES.left;
         break;
       case "down":
         position = {
-          x: (boundaries.right - projectileDimensions.width) * Math.random(),
+          x: (BOUNDARIES.right - PROJECTILE_DIMENSIONS.width) * Math.random(),
           y: 0,
         };
-        if (position.x < boundaries.left) position.x = boundaries.left;
+        if (position.x < BOUNDARIES.left) position.x = BOUNDARIES.left;
         break;
       case "right":
         position = {
           x: 0,
           y:
-            boundaries.top +
-            (boundaries.bottom - projectileDimensions.height - boundaries.top) *
+            BOUNDARIES.top +
+            (BOUNDARIES.bottom -
+              PROJECTILE_DIMENSIONS.height -
+              BOUNDARIES.top) *
               Math.random(),
         };
         break;
       case "left":
         position = {
-          x: boardSize.x - projectileDimensions.width,
+          x: BOARD_SIZE.x - PROJECTILE_DIMENSIONS.width,
           y:
-            boundaries.top +
-            (boundaries.bottom - projectileDimensions.height - boundaries.top) *
+            BOUNDARIES.top +
+            (BOUNDARIES.bottom -
+              PROJECTILE_DIMENSIONS.height -
+              BOUNDARIES.top) *
               Math.random(),
         };
         break;
@@ -208,20 +212,20 @@ export const checkPlayerCollision = (
   setGameOver
 ) => {
   for (let proj of projectiles) {
-    let projRight = proj.position.x + projectileDimensions.width;
-    let projBottom = proj.position.y + projectileDimensions.height;
+    let projRight = proj.position.x + PROJECTILE_DIMENSIONS.width;
+    let projBottom = proj.position.y + PROJECTILE_DIMENSIONS.height;
     if (proj.direction == "up" || proj.direction == "down") {
-      projRight = proj.position.x + projectileDimensions.height;
-      projBottom = proj.position.y + projectileDimensions.width;
+      projRight = proj.position.x + PROJECTILE_DIMENSIONS.height;
+      projBottom = proj.position.y + PROJECTILE_DIMENSIONS.width;
     }
     if (
-      ((playerPosition.x + playerDimensions.width > proj.position.x &&
+      ((playerPosition.x + PLAYER_DIMENSIONS.width > proj.position.x &&
         proj.position.x > playerPosition.x) ||
-        (playerPosition.x + playerDimensions.width > projRight &&
+        (playerPosition.x + PLAYER_DIMENSIONS.width > projRight &&
           projRight > playerPosition.x)) &&
-      ((playerPosition.y + playerDimensions.height > proj.position.y &&
+      ((playerPosition.y + PLAYER_DIMENSIONS.height > proj.position.y &&
         proj.position.y > playerPosition.y) ||
-        (playerPosition.y + playerDimensions.height > projBottom &&
+        (playerPosition.y + PLAYER_DIMENSIONS.height > projBottom &&
           projBottom > playerPosition.y))
     ) {
       setGameOver(true);
