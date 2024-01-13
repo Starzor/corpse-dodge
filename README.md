@@ -4,6 +4,7 @@
 - available at https://corpse-dodge.web.app/
 
 ## Running locally
+- go to corpse-dodge folder
 - npm install to get the dependencies
 - npm start to run
 - open localhost:3000 in your browser
